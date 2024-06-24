@@ -4,9 +4,6 @@ from esphome.const import CONF_ID
 
 CODEOWNERS = ["@YoshiiPlayzz"]
 
-DEPENDENCIES = ['network']
-AUTO_LOAD = ['sensor']
-
 CONF_HUAWEI_LTE_SENSOR_ID = 'huawei_lte_sensor_id'
 CONF_HOST = 'host'
 CONF_USERNAME = 'username'
