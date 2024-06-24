@@ -7,8 +7,11 @@ namespace huawei_lte {
 static const char *TAG = "huawei_lte.sensor";
 
 void HuaweiLTESensor::setup() {}
+void HuaweiLTESensor::loop(){
+}
+void HuaweiLTESensor::update(){
 
-
+}
 
 
 void HuaweiLTESensor::dump_config() { ESP_LOGCONFIG(TAG, "Empty custom sensor"); }

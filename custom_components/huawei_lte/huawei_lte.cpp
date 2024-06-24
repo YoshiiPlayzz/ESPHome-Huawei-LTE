@@ -16,9 +16,6 @@ static const char *TAG = "huawei_lte";
     void HuaweiLTE::dump_config(){
 
     }
-    void HuaweiLTE::set_host(std::string host){
-
-    }
 
 }  
 } 

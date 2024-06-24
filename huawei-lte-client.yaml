@@ -16,4 +16,4 @@ huawei_lte:
     username: "admin"
     password: "admin"
     id: huawei_lte_component
-    update_interval: 60s
+
