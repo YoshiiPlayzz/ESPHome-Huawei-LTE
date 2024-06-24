@@ -5,9 +5,24 @@
 namespace esphome {
 namespace huawei_lte { 
     class HuaweiLTE: public  Component{
+     public:
         void setup() override;
         void loop() override;
         void dump_config() override;
+        void set_host(std::string host){
+            this->host_ = host;
+        };
+        void set_username(std::string username){
+            this->username_ = username;
+        };
+        void set_password(std::string password){
+            this->password_ = password;
+        };
+     protected:
+        std::string host_;
+        std::string username_;
+        std::string password_;
+
     };
 
 }
