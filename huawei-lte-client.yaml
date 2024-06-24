@@ -1,0 +1,19 @@
+esphome:
+  name: esphome-huawei-lte
+  platform: ESP8266
+  board: nodemcuv2
+
+external_components:
+- source:
+      type: local
+      path: custom_components/huawei_lte
+wifi:
+  ssid: "your_ssid"
+  password: "your_password"
+
+huawei_lte:
+    host: "192.168.8.1"
+    username: "admin"
+    password: "admin"
+    id: huawei_lte_component
+    update_interval: 60s
