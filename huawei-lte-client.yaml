@@ -2,6 +2,14 @@ esphome:
   name: esphome-huawei-lte
   platform: ESP8266
   board: nodemcuv2
+  libraries: 
+  -  ${common.lib_deps}
+  - SPI 
+  - ESP8266WiFi                           
+  - ESP8266HTTPClient
+
+http_request:
+  verify_ssl: false
 
 external_components:
 - source:
@@ -12,8 +20,13 @@ wifi:
   password: "your_password"
 
 huawei_lte:
-    host: "192.168.8.1"
+    host: "http://192.168.8.1"
     username: "admin"
     password: "admin"
-    id: huawei_lte_component
+    id: HuaweiLTE
+sensor:
+  - platform: huawei_lte
+    huawei_lte_id: HuaweiLTE
+    name: "Device Information"
+    type: DEVICE_INFORMATION
 

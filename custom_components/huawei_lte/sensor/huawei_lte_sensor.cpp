@@ -6,7 +6,10 @@ namespace huawei_lte {
 
 static const char *TAG = "huawei_lte.sensor";
 
-void HuaweiLTESensor::setup() {}
+std::string connection_str;
+void HuaweiLTESensor::setup() {
+    connection_str = HuaweiLTE::connection_string();
+}
 void HuaweiLTESensor::loop(){
 }
 void HuaweiLTESensor::update(){
