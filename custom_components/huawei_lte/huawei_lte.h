@@ -4,7 +4,7 @@
 
 namespace esphome {
 namespace huawei_lte { 
-    class HuaweiLTE: public Component, public HttpContainer{
+    class HuaweiLTE: public Component{
      public:
         void setup() override;
         void loop() override;

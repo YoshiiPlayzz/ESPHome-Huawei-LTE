@@ -1,8 +1,9 @@
 #pragma once
 
 #include "esphome/components/sensor/sensor.h"
-#include "esphome/core/component.h"
-#include "../huawei_lte.h"
+#include "esphome/components/huawei_lte/huawei_lte.h"
+#include "esphome/core/log.h"
+
 namespace esphome {
 namespace huawei_lte {
     
@@ -23,11 +24,12 @@ switch(val){
 }
 }
 
-class HuaweiLTESensor: public sensor::Sensor, public PollingComponent, public HuaweiLTE {
+class HuaweiLTESensor: public sensor::Sensor, public PollingComponent, public Parented<HuaweiLTE> {
  public:
   void setup() override;
   void dump_config() override;
   void set_type(HUAWEI_LTE_SENSOR_TYPE type){this->type_ = type;}
+  
  protected:
     HUAWEI_LTE_SENSOR_TYPE type_;   
 };

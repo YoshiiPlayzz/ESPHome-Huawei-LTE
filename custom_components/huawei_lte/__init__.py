@@ -22,7 +22,7 @@ CONF_USERNAME = 'username'
 CONF_PASSWORD = 'password'
 
 huawei_lte_ns = cg.esphome_ns.namespace('huawei_lte')
-HuaweiLTEComponent = huawei_lte_ns.class_('HuaweiLTE', http_request.HttpContainer, cg.PollingComponent)
+HuaweiLTEComponent = huawei_lte_ns.class_('HuaweiLTE', cg.PollingComponent)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(HuaweiLTEComponent),

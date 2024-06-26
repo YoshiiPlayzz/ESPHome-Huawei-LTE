@@ -1,5 +1,6 @@
 #include "huawei_lte_sensor.h"
 #include "esphome/core/log.h"
+#include "esphome.h"
 
 namespace esphome {
 namespace huawei_lte {
@@ -13,6 +14,8 @@ void HuaweiLTESensor::setup() {
 void HuaweiLTESensor::loop(){
 }
 void HuaweiLTESensor::update(){
+    auto *request = new esphome::http_request::HttpRequestComponent();
+
 
 }
 
