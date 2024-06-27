@@ -34,7 +34,7 @@ from esphome.const import (
     UNIT_WATT,
 )
 
-from .. import CONF_HUAWEI_LTE_ID, HuaweiLTEComponent, huawei_lte_ns
+from huawei_lte import CONF_HUAWEI_LTE_ID, HuaweiLTEComponent, huawei_lte_ns
 
 DEPENDENCIES = ["huawei_lte"]
 CODEOWNERS = ["@YoshiiPlayzz"]
@@ -96,17 +96,18 @@ def set_default_based_on_type():
 
     return set_defaults_
 """
-CONFIG_SCHEMA  = sensor.sensor_schema(HuaweiLTESensor).extend(
+CONFIG_SCHEMA  = sensor.sensor_schema(unit_of_measurement=UNIT_EMPTY, icon=ICON_BATTERY, accuracy_decimals=1).extend(
         {
         cv.GenerateID(): cv.declare_id(HuaweiLTESensor),
         cv.GenerateID(CONF_HUAWEI_LTE_ID): cv.use_id(HuaweiLTEComponent),
         cv.Required(CONF_TYPE): cv.enum(CONF_SUPPORTED_TYPE, upper=True),
-    })
+    }).extend(cv.COMPONENT_SCHEMA)
     
 #FINAL_VALIDATE_SCHEMA = set_default_based_on_type()
 
 async def to_code(config):
-    var = sensor.new_sensor(config)
+    print("found file")
+    var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
     await sensor.register_sensor(var, config)
     await cg.register_parented(var, config[CONF_HUAWEI_LTE_ID])
