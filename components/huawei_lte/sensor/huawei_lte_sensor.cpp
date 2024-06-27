@@ -18,30 +18,31 @@ namespace huawei_lte {
 
 static const char *TAG = "huawei_lte.sensor";
 
-std::string connection_str;
+
 void HuaweiLTESensor::setup() {
-    //connection_str = HuaweiLTE::connection_string();
+  
 }
 void HuaweiLTESensor::loop(){
 }
 void HuaweiLTESensor::update(){
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
-
+    ESP_LOGI(TAG, "Connection String: %s", this->parent_->connection_string().c_str());
+    //TODO: Change
     http.begin("http://google.com"); // Specify the URL
     int httpCode = http.GET();              // Make the request
 
     if (httpCode > 0) { // Check for the returning code
       String payload = http.getString();
     
-      ESP_LOGI("custom_component", "HTTP request succeeded, payload: %s", payload.c_str());
+      ESP_LOGI(TAG, "HTTP request succeeded, payload: %s", payload.c_str());
     } else {
-      ESP_LOGE("custom_component", "HTTP request failed, error: %s", http.errorToString(httpCode).c_str());
+      ESP_LOGE(TAG, "HTTP request failed, error: %s", http.errorToString(httpCode).c_str());
     }
 
     http.end(); // Free the resources
   } else {
-    ESP_LOGE("custom_component", "WiFi not connected");
+    ESP_LOGE(TAG, "WiFi not connected");
   }
 }
 

@@ -33,12 +33,6 @@ CONFIG_SCHEMA = cv.Schema({
     cv.Required(CONF_PASSWORD): cv.string,
 }).extend(cv.COMPONENT_SCHEMA)
 
-"""HUB_CHILD_SCHEMA = cv.Schema({
-    cv.GenerateID(CONF_HUAWEI_LTE_ID): cv.use_id(HuaweiLTEComponent ),
-})
-"""
-
-
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
     await cg.register_component(var, config)
