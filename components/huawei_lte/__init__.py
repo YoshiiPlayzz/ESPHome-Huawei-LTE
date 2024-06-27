@@ -2,9 +2,11 @@ import esphome.codegen as cg
 import re
 import esphome.config_validation as cv
 from esphome.const import CONF_ID
+from esphome.core import  CORE
+from esphome.components import esp32
 
 CODEOWNERS = ["@YoshiiPlayzz"]
-DEPENDENCIES = ["http_request"]
+DEPENDENCIES = ["network"]
 
 CONF_HUAWEI_LTE_ID = "huawei_lte_id" 
 CONF_HOST = 'host'
@@ -46,4 +48,13 @@ async def to_code(config):
         cg.add(var.set_username(config[CONF_USERNAME]))
     if CONF_PASSWORD in config:
         cg.add(var.set_password(config[CONF_PASSWORD]))
+    
+    if CORE.is_esp32:
+        if not CORE.using_esp_idf:
+            cg.add_library("WiFiClientSecure", None)
+            cg.add_library("HTTPClient", None)
+    if CORE.is_esp8266:
+        cg.add_library("ESP8266HTTPClient", None)
+    if CORE.is_rp2040 and CORE.using_arduino:
+        cg.add_library("HTTPClient", None)
 

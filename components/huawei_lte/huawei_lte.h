@@ -20,14 +20,14 @@ namespace huawei_lte {
         void set_password(std::string password){
             this->password_ = password;
         };
-   
+        std::string connection_string(){
+            return this->host_.substr(1, 7) + this->username_ + ":" + this->password_ + "@"+this->host_.substr(7);
+        }
      protected:
         std::string host_;
         std::string username_;
         std::string password_;
-        std::string connection_string(){
-            return this->host_.substr(1, 7) + this->username_ + ":" + this->password_ + "@"+this->host_.substr(7);
-        }
+
         
     };
 

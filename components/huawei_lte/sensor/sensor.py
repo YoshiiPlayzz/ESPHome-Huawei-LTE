@@ -96,7 +96,7 @@ def set_default_based_on_type():
 
     return set_defaults_
 """
-CONFIG_SCHEMA  = sensor.sensor_schema(unit_of_measurement=UNIT_EMPTY, icon=ICON_BATTERY, accuracy_decimals=1).extend(
+CONFIG_SCHEMA  = sensor.sensor_schema(HuaweiLTESensor, unit_of_measurement=UNIT_EMPTY, icon=ICON_BATTERY, accuracy_decimals=1).extend(
         {
         cv.GenerateID(): cv.declare_id(HuaweiLTESensor),
         cv.GenerateID(CONF_HUAWEI_LTE_ID): cv.use_id(HuaweiLTEComponent),
@@ -108,7 +108,8 @@ CONFIG_SCHEMA  = sensor.sensor_schema(unit_of_measurement=UNIT_EMPTY, icon=ICON_
 async def to_code(config):
     print("found file")
     var = cg.new_Pvariable(config[CONF_ID])
-    await cg.register_component(var, config)
     await sensor.register_sensor(var, config)
-    await cg.register_parented(var, config[CONF_HUAWEI_LTE_ID])
+    await cg.register_component(var, config)
+    parent = await cg.get_variable(config['huawei_lte_id'])
     cg.add(var.set_type(CONF_SUPPORTED_TYPE[config[CONF_TYPE]][CONF_TYPE]))
+    cg.add(parent.register_sensor(var))
