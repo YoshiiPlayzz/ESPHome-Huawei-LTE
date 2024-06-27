@@ -1,13 +1,40 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import sensor
-from esphome.const import (UNIT_EMPTY, ICON_EMPTY, 
-                            CONF_TYPE, CONF_ID,
-                            CONF_STATE_CLASS, CONF_UNIT_OF_MEASUREMENT,
-                            CONF_ICON, CONF_ACCURACY_DECIMALS,
-                            CONF_DEVICE_CLASS, DEVICE_CLASS_EMPTY,
-                            STATE_CLASS_MEASUREMENT)
-from .. import HuaweiLTEComponent, CONF_HUAWEI_LTE_ID, huawei_lte_ns
+from esphome.const import (
+    CONF_ACCURACY_DECIMALS,
+    CONF_DEVICE_CLASS,
+    CONF_ICON,
+    CONF_ID,
+    CONF_STATE_CLASS,
+    CONF_TYPE,
+    CONF_UNIT_OF_MEASUREMENT,
+    DEVICE_CLASS_APPARENT_POWER,
+    DEVICE_CLASS_BATTERY,
+    DEVICE_CLASS_CURRENT,
+    DEVICE_CLASS_DURATION,
+    DEVICE_CLASS_ENERGY,
+    DEVICE_CLASS_POWER,
+    DEVICE_CLASS_TEMPERATURE,
+    DEVICE_CLASS_VOLTAGE,
+    DEVICE_CLASS_EMPTY,
+    ICON_BATTERY,
+    ICON_POWER,
+    ICON_THERMOMETER,
+    STATE_CLASS_MEASUREMENT,
+    STATE_CLASS_TOTAL_INCREASING,
+    UNIT_AMPERE,
+    UNIT_CELSIUS,
+    UNIT_EMPTY,
+    UNIT_KILOWATT_HOURS,
+    UNIT_MINUTE,
+    UNIT_PERCENT,
+    UNIT_VOLT,
+    UNIT_VOLT_AMPS,
+    UNIT_WATT,
+)
+
+from .. import CONF_HUAWEI_LTE_ID, HuaweiLTEComponent, huawei_lte_ns
 
 DEPENDENCIES = ["huawei_lte"]
 CODEOWNERS = ["@YoshiiPlayzz"]
@@ -25,6 +52,7 @@ CONF_SUPPORTED_TYPE = {
     },
 
 }
+"""
 def set_default_based_on_type():
     def set_defaults_(config):
         type = config[CONF_TYPE]
@@ -67,21 +95,18 @@ def set_default_based_on_type():
         return config
 
     return set_defaults_
-
-CONFIG_SCHEMA = (
-    sensor.sensor_schema()
-    .extend(
+"""
+CONFIG_SCHEMA  = sensor.sensor_schema(HuaweiLTESensor).extend(
         {
         cv.GenerateID(): cv.declare_id(HuaweiLTESensor),
-        cv.GenerateID(CONF_HUAWEI_LTE_ID): cv.declare_id(HuaweiLTEComponent),
+        cv.GenerateID(CONF_HUAWEI_LTE_ID): cv.use_id(HuaweiLTEComponent),
         cv.Required(CONF_TYPE): cv.enum(CONF_SUPPORTED_TYPE, upper=True),
     })
-    .extend(cv.COMPONENT_SCHEMA)
-    )
-FINAL_VALIDATE_SCHEMA = set_default_based_on_type()
+    
+#FINAL_VALIDATE_SCHEMA = set_default_based_on_type()
 
 async def to_code(config):
-    var = cg.new_Pvariable(config[CONF_ID])
+    var = sensor.new_sensor(config)
     await cg.register_component(var, config)
     await sensor.register_sensor(var, config)
     await cg.register_parented(var, config[CONF_HUAWEI_LTE_ID])

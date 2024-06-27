@@ -2,7 +2,15 @@ import esphome.codegen as cg
 import re
 import esphome.config_validation as cv
 from esphome.const import CONF_ID
-from esphome.components import http_request
+
+CODEOWNERS = ["@YoshiiPlayzz"]
+DEPENDENCIES = ["http_request"]
+
+CONF_HUAWEI_LTE_ID = "huawei_lte_id" 
+CONF_HOST = 'host'
+CONF_USERNAME = 'username'
+CONF_PASSWORD = 'password'
+
 
 def check_host(val):
     if "http://" in val:
@@ -13,16 +21,8 @@ def check_host(val):
     else:
         return ""
 
-
-CODEOWNERS = ["@YoshiiPlayzz"]
-DEPENDENCIES = ["http_request"]
-CONF_HUAWEI_LTE_ID = "huawei_lte_id" 
-CONF_HOST = 'host'
-CONF_USERNAME = 'username'
-CONF_PASSWORD = 'password'
-
 huawei_lte_ns = cg.esphome_ns.namespace('huawei_lte')
-HuaweiLTEComponent = huawei_lte_ns.class_('HuaweiLTE', cg.PollingComponent)
+HuaweiLTEComponent = huawei_lte_ns.class_('HuaweiLTE', cg.Component)
 
 CONFIG_SCHEMA = cv.Schema({
     cv.GenerateID(): cv.declare_id(HuaweiLTEComponent),
@@ -31,6 +31,10 @@ CONFIG_SCHEMA = cv.Schema({
     cv.Required(CONF_PASSWORD): cv.string,
 }).extend(cv.COMPONENT_SCHEMA)
 
+"""HUB_CHILD_SCHEMA = cv.Schema({
+    cv.GenerateID(CONF_HUAWEI_LTE_ID): cv.use_id(HuaweiLTEComponent ),
+})
+"""
 
 
 async def to_code(config):

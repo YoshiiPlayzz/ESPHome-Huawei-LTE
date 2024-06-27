@@ -1,6 +1,5 @@
 #pragma once
 
-#include "esphome/components/sensor/sensor.h"
 #include "esphome/components/huawei_lte/huawei_lte.h"
 #include "esphome/core/log.h"
 
@@ -29,7 +28,6 @@ class HuaweiLTESensor: public sensor::Sensor, public PollingComponent, public Pa
   void setup() override;
   void dump_config() override;
   void set_type(HUAWEI_LTE_SENSOR_TYPE type){this->type_ = type;}
-  
  protected:
     HUAWEI_LTE_SENSOR_TYPE type_;   
 };
