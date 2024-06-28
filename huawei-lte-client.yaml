@@ -25,3 +25,11 @@ sensor:
     huawei_lte_id: huaweilte
     name: Device Information
     type: DEVICE_INFORMATION
+  - platform: huawei_lte
+    huawei_lte_id: huaweilte
+    name: Up
+    type: MONITORING_MONTH
+    subtype: DATA_UP
+
+
+
