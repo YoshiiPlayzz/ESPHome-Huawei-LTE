@@ -5,7 +5,7 @@
 #include "esphome/components/sensor/sensor.h"
 #include <unordered_map>
 #include <string>
-
+#include <sstream>
 namespace esphome {
 namespace huawei_lte {
     
@@ -53,6 +53,9 @@ class HuaweiLTESensor: public sensor::Sensor, public PollingComponent, public Pa
   HUAWEI_LTE_SENSOR_TYPE get_type(){return this->type_; };
   HUAWEI_LTE_SENSOR_SUBTYPE get_subtype(){return this->subtype_; };
   void set_subtype(HUAWEI_LTE_SENSOR_SUBTYPE subtype){this->subtype_ = subtype;};
+ private:
+    std::vector<std::string> parse(std::string& to_parse, std::vector<std::string> paths);
+    std::vector<std::string> split(const std::string& str, char delimiter);
  protected:
     HUAWEI_LTE_SENSOR_TYPE type_ = HUAWEI_LTE_SENSOR_TYPE::UNSET;   
     HUAWEI_LTE_SENSOR_SUBTYPE subtype_ = HUAWEI_LTE_SENSOR_SUBTYPE::UNSET;
