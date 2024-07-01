@@ -28,8 +28,8 @@ static const std::unordered_map<HUAWEI_LTE_SENSOR_TYPE, std::string> HUAWEI_LTE_
 };
 static const std::unordered_map<HUAWEI_LTE_SENSOR_SUBTYPE, std::string> HUAWEI_LTE_SENSOR_SUBTYPE_MAP = {
     //MONITORING_MONTH
-    {HUAWEI_LTE_SENSOR_SUBTYPE::DATA_UP, HUAWEI_LTE_SENSOR_TYPE_MAP.at(HUAWEI_LTE_SENSOR_TYPE::MONITORING_MONTH) + ":CurrentMonthDownload"},
-    {HUAWEI_LTE_SENSOR_SUBTYPE::DATA_DOWN, HUAWEI_LTE_SENSOR_TYPE_MAP.at(HUAWEI_LTE_SENSOR_TYPE::MONITORING_MONTH) + ":CurrentMonthUpload"},
+    {HUAWEI_LTE_SENSOR_SUBTYPE::DATA_UP, HUAWEI_LTE_SENSOR_TYPE_MAP.at(HUAWEI_LTE_SENSOR_TYPE::MONITORING_MONTH) + ":CurrentMonthUpload"},
+    {HUAWEI_LTE_SENSOR_SUBTYPE::DATA_DOWN, HUAWEI_LTE_SENSOR_TYPE_MAP.at(HUAWEI_LTE_SENSOR_TYPE::MONITORING_MONTH) + ":CurrentMonthDownload"},
 };
 
 static const char *enum_to_c_str(const HUAWEI_LTE_SENSOR_TYPE val) {
@@ -53,9 +53,11 @@ class HuaweiLTESensor: public sensor::Sensor, public PollingComponent, public Pa
   HUAWEI_LTE_SENSOR_TYPE get_type(){return this->type_; };
   HUAWEI_LTE_SENSOR_SUBTYPE get_subtype(){return this->subtype_; };
   void set_subtype(HUAWEI_LTE_SENSOR_SUBTYPE subtype){this->subtype_ = subtype;};
+  bool hasSubtype(){ return (this->subtype_ != HUAWEI_LTE_SENSOR_SUBTYPE::UNSET);};
  private:
     std::vector<std::string> parse(std::string& to_parse, std::vector<std::string> paths);
     std::vector<std::string> split(const std::string& str, char delimiter);
+    void workWithParsed(std::vector<std::string> parsed);
  protected:
     HUAWEI_LTE_SENSOR_TYPE type_ = HUAWEI_LTE_SENSOR_TYPE::UNSET;   
     HUAWEI_LTE_SENSOR_SUBTYPE subtype_ = HUAWEI_LTE_SENSOR_SUBTYPE::UNSET;
