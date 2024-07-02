@@ -66,6 +66,8 @@ namespace esphome
       {
         ESP_LOGI(TAG, "Parsed value: '%s'", p.c_str());
       }
+      workWithParsed(parsed);
+     ESP_LOGI(TAG, "%s", this->get_device_class().c_str());
     }
     void HuaweiLTESensor::loop()
     {
@@ -105,8 +107,8 @@ namespace esphome
         {
           ESP_LOGE(TAG, "WiFi not connected");
         }
-      }else if(err_count == 11){
-        this->status_set_error("Connection could not be established!");
+      }else if(err_count == 10){
+        this->mark_failed();
       }
     }
 
@@ -124,7 +126,8 @@ namespace esphome
       return tokens;
     }
 
-    /* Parses automatic a json string and returns value of given path
+    /* 
+     * Parses automatic a json string and returns value of given path
      */
     std::vector<std::string> HuaweiLTESensor::parse(std::string &to_parse, std::vector<std::string> paths)
     {

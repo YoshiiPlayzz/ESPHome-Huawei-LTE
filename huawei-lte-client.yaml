@@ -27,7 +27,7 @@ sensor:
     type: DEVICE_INFORMATION
   - platform: huawei_lte
     huawei_lte_id: huaweilte
-    name: Up
+    name: Data uploaded in current month
     type: MONITORING_MONTH
     subtype: DATA_UP
 

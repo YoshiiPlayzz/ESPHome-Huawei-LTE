@@ -57,7 +57,7 @@ CONF_SUPPORTED_TYPE = {
     "MONITORING_MONTH": {
         CONF_TYPE: HUAWEI_LTE_SENSOR_TYPE.MONITORING_MONTH,
         CONF_UNIT_OF_MEASUREMENT: UNIT_BYTES,
-        CONF_ACCURACY_DECIMALS: 1,
+        CONF_ACCURACY_DECIMALS: 0,
         CONF_DEVICE_CLASS: DEVICE_CLASS_DATA_SIZE
     }
 }
@@ -67,7 +67,7 @@ CONF_SUPPORTED_SUBTYPE = {
         CONF_UNIT_OF_MEASUREMENT: UNIT_BYTES,
         CONF_SUBTYPE: HUAWEI_LTE_SENSOR_SUBTYPE.DATA_UP,
         CONF_ICON: "mdi:wifi-arrow-up",
-        CONF_ACCURACY_DECIMALS: 1,
+        CONF_ACCURACY_DECIMALS: 0,
         CONF_DEVICE_CLASS: DEVICE_CLASS_DATA_SIZE
     },
       "DATA_DOWN": {
@@ -75,7 +75,7 @@ CONF_SUPPORTED_SUBTYPE = {
         CONF_SUBTYPE: HUAWEI_LTE_SENSOR_SUBTYPE.DATA_DOWN,
         CONF_UNIT_OF_MEASUREMENT: UNIT_BYTES,
         CONF_ICON: "mdi:wifi-arrow-down",
-        CONF_ACCURACY_DECIMALS: 1,
+        CONF_ACCURACY_DECIMALS: 0,
         CONF_DEVICE_CLASS: DEVICE_CLASS_DATA_SIZE
     }
 }
@@ -83,11 +83,18 @@ CONF_SUPPORTED_SUBTYPE = {
 def set_default_based_on_type():
     def set_defaults_(config):
         type = config[CONF_TYPE]
+        type_dict = CONF_SUPPORTED_TYPE
+        if CONF_SUBTYPE in config:
+            type_dict = CONF_SUPPORTED_SUBTYPE
+            type = config[CONF_SUBTYPE]
+            print("Using subtype dict.")
+      
+
         # set defaults based on sensor type:
         if CONF_STATE_CLASS not in config:
-            if CONF_STATE_CLASS in CONF_SUPPORTED_TYPE[type]:
+            if CONF_STATE_CLASS in type_dict[type]:
                 config[CONF_STATE_CLASS] = sensor.validate_state_class(
-                    CONF_SUPPORTED_TYPE[type][CONF_STATE_CLASS]
+                    type_dict[type][CONF_STATE_CLASS]
                 )
             else:
                 config[CONF_STATE_CLASS] = sensor.validate_state_class(
@@ -96,28 +103,28 @@ def set_default_based_on_type():
 
         if (
             CONF_UNIT_OF_MEASUREMENT not in config
-            and CONF_UNIT_OF_MEASUREMENT in CONF_SUPPORTED_TYPE[type]
+            and CONF_UNIT_OF_MEASUREMENT in type_dict[type]
         ):
-            config[CONF_UNIT_OF_MEASUREMENT] = CONF_SUPPORTED_TYPE[type][
+            config[CONF_UNIT_OF_MEASUREMENT] = type_dict[type][
                 CONF_UNIT_OF_MEASUREMENT
             ]
 
-        if CONF_ICON not in config and CONF_ICON in CONF_SUPPORTED_TYPE[type]:
-            config[CONF_ICON] = CONF_SUPPORTED_TYPE[type][CONF_ICON]
+        if CONF_ICON not in config and CONF_ICON in type_dict[type]:
+            config[CONF_ICON] = type_dict[type][CONF_ICON]
 
         if (
             CONF_ACCURACY_DECIMALS not in config
-            and CONF_ACCURACY_DECIMALS in CONF_SUPPORTED_TYPE[type]
+            and CONF_ACCURACY_DECIMALS in type_dict[type]
         ):
-            config[CONF_ACCURACY_DECIMALS] = CONF_SUPPORTED_TYPE[type][
+            config[CONF_ACCURACY_DECIMALS] = type_dict[type][
                 CONF_ACCURACY_DECIMALS
             ]
 
         if (
             CONF_DEVICE_CLASS not in config
-            and CONF_DEVICE_CLASS in CONF_SUPPORTED_TYPE[type]
+            and CONF_DEVICE_CLASS in type_dict[type]
         ):
-            config[CONF_DEVICE_CLASS] = CONF_SUPPORTED_TYPE[type][CONF_DEVICE_CLASS]
+            config[CONF_DEVICE_CLASS] = type_dict[type][CONF_DEVICE_CLASS]
 
         return config
 
