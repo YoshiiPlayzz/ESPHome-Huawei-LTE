@@ -18,8 +18,8 @@ wifi:
 huawei_lte:
   id: huaweilte
   host: "http://192.168.8.1"
-  username: "admin"
-  password: "admin"
+  username: !secret huawei_user #Default: admin
+  password: !secret huawei_password #Default: admin
 sensor:
   - platform: huawei_lte
     huawei_lte_id: huaweilte

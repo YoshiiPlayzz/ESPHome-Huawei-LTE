@@ -10,7 +10,7 @@ namespace esphome {
 namespace huawei_lte {
     
 //TODO: Add Sensor Types
-
+const std::string API = "api/";
 enum class HUAWEI_LTE_SENSOR_TYPE{
     DEVICE_INFORMATION, 
     MONITORING_MONTH, 
@@ -23,8 +23,8 @@ enum class HUAWEI_LTE_SENSOR_SUBTYPE{
     UNSET
 };
 static const std::unordered_map<HUAWEI_LTE_SENSOR_TYPE, std::string> HUAWEI_LTE_SENSOR_TYPE_MAP = {
-    {HUAWEI_LTE_SENSOR_TYPE::DEVICE_INFORMATION, "device/information"},
-    {HUAWEI_LTE_SENSOR_TYPE::MONITORING_MONTH, "monitoring/month_statistics_wlan"}
+    {HUAWEI_LTE_SENSOR_TYPE::DEVICE_INFORMATION, API+ "device/information"},
+    {HUAWEI_LTE_SENSOR_TYPE::MONITORING_MONTH, API + "monitoring/month_statistics_wlan"}
 };
 static const std::unordered_map<HUAWEI_LTE_SENSOR_SUBTYPE, std::string> HUAWEI_LTE_SENSOR_SUBTYPE_MAP = {
     //MONITORING_MONTH
